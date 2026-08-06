@@ -1,0 +1,5 @@
+LLVM_MINGW_VERSION=20260616
+LLVM_MINGW_DIRECTORY=llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64
+LLVM_MINGW_ARCHIVE=llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz
+LLVM_MINGW_URL=https://github.com/mstorsjo/llvm-mingw/releases/download/20260616/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz
+LLVM_MINGW_SHA256=534b92e067b22a6b4441f48ae9240a3341b17825d04d577eab0cf85c44b4deda

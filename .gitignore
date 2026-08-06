@@ -3,6 +3,11 @@
 /out/
 /bin/
 /obj/
+/dist/
+
+# Downloaded toolchains
+/.toolchains/
+/tools/cache/
 
 # CMake
 CMakeCache.txt

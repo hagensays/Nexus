@@ -8,7 +8,7 @@ Nexus is a lean, modular Windows productivity application written in C++20.
 - minimal CMake build
 - Win32 API
 - Windows x64 target
-- Linux-to-Windows cross-compilation with MinGW-w64
+- Linux-to-Windows cross-compilation with pinned LLVM-MinGW
 - no external runtime or UI framework
 - GitHub used only for source storage and commit history
 
@@ -25,25 +25,27 @@ src/
 
 The current bootstrap includes a small Home module, a Settings module, a Win32 main window, and Linux-buildable Core tests.
 
-## Build Core tests on Linux
+## Test Core and modules on Linux
 
 ```bash
-cmake -S . -B build/linux -G Ninja
-cmake --build build/linux
-ctest --test-dir build/linux --output-on-failure
+./tools/test-linux.sh
 ```
 
-## Cross-compile Nexus.exe on Linux
+## Build Nexus.exe on Linux
 
-Requires MinGW-w64:
+The repository pins LLVM-MinGW `20260616` and verifies its SHA-256 checksum before use.
+
+Normal setup and build:
 
 ```bash
-cmake -S . -B build/windows -G Ninja \
-  -DCMAKE_SYSTEM_NAME=Windows \
-  -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ \
-  -DCMAKE_RC_COMPILER=x86_64-w64-mingw32-windres
+./tools/build-windows.sh
+```
 
-cmake --build build/windows
+The bootstrap script downloads the exact pinned archive when it is not already present. A pre-downloaded archive can be supplied explicitly:
+
+```bash
+NEXUS_TOOLCHAIN_ARCHIVE=/path/to/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz \
+  ./tools/build-windows.sh
 ```
 
 Expected output:
@@ -51,5 +53,7 @@ Expected output:
 ```text
 build/windows/bin/Nexus.exe
 ```
+
+Toolchain metadata is stored in `tools/llvm-mingw.lock`. The upstream archive includes its license as `LICENSE.TXT`.
 
 See `AGENTS.md` for development rules and `roadmap.md` for milestones.

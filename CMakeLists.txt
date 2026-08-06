@@ -35,13 +35,14 @@ if(WIN32)
         src/Nexus.UI/MainWindow.cpp
     )
     target_include_directories(Nexus PRIVATE src)
+    target_compile_definitions(Nexus PRIVATE UNICODE _UNICODE)
     target_link_libraries(Nexus PRIVATE NexusCore NexusModules user32 gdi32)
 
     if(MSVC)
         target_compile_options(Nexus PRIVATE /W4 /permissive-)
     else()
         target_compile_options(Nexus PRIVATE -Wall -Wextra -Wpedantic)
-        target_link_options(Nexus PRIVATE -static -static-libgcc -static-libstdc++)
+        target_link_options(Nexus PRIVATE -municode -static -static-libgcc -static-libstdc++)
     endif()
 
     set_target_properties(Nexus PROPERTIES
